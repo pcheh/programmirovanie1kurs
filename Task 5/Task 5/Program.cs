@@ -10,11 +10,24 @@ namespace Task_5
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("5.1\n");
             Console.WriteLine("Введите текст капсом на русском языке");
             string text = Console.ReadLine();
             Console.WriteLine(TranslationToCS(text));
 
             Console.ReadKey();
+
+            Console.WriteLine("\n5.2\n");
+
+            string str = "трос";   /*сорт, рост*/
+            Console.WriteLine(str);
+            string sort = string.Empty + str[3] + str[2] + str[1] + str[0];
+            string rost = str.Substring(1, 2) + str.Substring(3, 1) + str.Substring(0, 1);
+
+            Console.WriteLine(sort);
+            Console.WriteLine(rost);
+            Console.ReadKey();
+
         }
 
         static string TranslationToCS(string text)
@@ -51,7 +64,6 @@ namespace Task_5
                 Replace("Э", "-)").
                 Replace("Ю", "IO").
                 Replace("Я", "9I");
-
         }
 
     }
