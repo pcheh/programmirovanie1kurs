@@ -12,10 +12,14 @@ namespace Task_3
         {
             Console.WriteLine("Введите x");
             var x = double.Parse(Console.ReadLine());
-            double y = Math.Sqrt((2 * x + Math.Sin(Math.Abs(3 * x))) / 3.56);
-            Console.WriteLine($"y = {y}");
+            Console.WriteLine($"y = {CountY(x)}");
 
             Console.ReadKey();
+        }
+
+        static double CountY (double x)
+        {
+            return Math.Sqrt((2 * x + Math.Sin(Math.Abs(3 * x))) / 3.56);
         }
     }
 }
