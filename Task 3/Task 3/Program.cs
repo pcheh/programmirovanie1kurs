@@ -13,7 +13,7 @@ namespace Task_3
             Console.WriteLine("Введите x");
             var x = double.Parse(Console.ReadLine());
             double y = Math.Sqrt((2 * x + Math.Sin(Math.Abs(3 * x))) / 3.56);
-            Console.WriteLine(y);
+            Console.WriteLine($"y = {y}");
 
             Console.ReadKey();
         }
