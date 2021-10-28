@@ -10,6 +10,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Вариант 3");
             var x = SquareSum(2, SquareSum(3, SquareSum(4, SquareSum(5, 0))));
             Console.WriteLine($"x = {Math.Round(x, 3)}");
 
