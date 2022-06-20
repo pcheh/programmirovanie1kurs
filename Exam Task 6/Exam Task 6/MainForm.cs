@@ -15,6 +15,9 @@ namespace Exam_Task_6
         Stack<Card>[] stacks = new Stack<Card>[9];
         Stack<Card> sbros = new Stack<Card>();
 
+        Stack<Card> stack1 = null;
+        Stack<Card> stack2 = null;
+
         Card activeCard;
         Card secondCard;
         int activeCardIndex;
@@ -24,6 +27,106 @@ namespace Exam_Task_6
             InitializeComponent();
 
             NewGame();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form exit = new ExitForm();
+
+            var result = exit.ShowDialog();
+
+            if (result == DialogResult.OK)
+                Application.Exit();
+
+            else if (result == DialogResult.No)
+                exit.Close();
+        }
+
+        private void newGame_Click(object sender, EventArgs e)
+        {
+            NewGame();
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(sbros.Count>0 && sbros.Count<36)
+            {
+                var c1 = sbros.Pop();
+                stack1.Push(c1);
+                var c2 = sbros.Pop();
+                stack2.Push(c2);
+
+                drawCards();
+
+                if (sbros.Count == 0)
+                    pictureBox10.Image = null;
+
+                undoToolStripMenuItem.Enabled = false;
+            }
+        }
+
+        private void rulesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form rules = new Rules();
+
+            var result = rules.ShowDialog();
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            var box = (PictureBox)sender;
+            if (activeCard == null)
+                PickFirstCard(box);
+            else
+                CheckPair(box);
+        }
+
+        private void PickFirstCard(PictureBox box)
+        {
+            var stackIndex = (string)box.Tag;
+            var i = int.Parse(stackIndex);
+            if (stacks[i].Count > 0)
+            {
+                activeCard = stacks[i].Peek();
+                activeCardIndex = i;
+                box.BorderStyle = BorderStyle.Fixed3D;
+            }
+        }
+
+        private void CheckPair(PictureBox box)
+        {
+            var stackIndex = (string)box.Tag;
+            var i = int.Parse(stackIndex);
+            if (stacks[i].Count > 0)
+                secondCard = stacks[i].Peek();
+
+            if (activeCard.Value == secondCard.Value && activeCard.Color != secondCard.Color)
+            {
+                var c1 = stacks[i].Pop();
+                var c2 = stacks[activeCardIndex].Pop();
+                sbros.Push(c2);
+                sbros.Push(c1);
+
+                stack1 = stacks[i];
+                stack2 = stacks[activeCardIndex];
+
+                undoToolStripMenuItem.Enabled = true;
+                drawCards();
+                CheckWin();
+            }
+
+            activeCard = null;
+            var pictureBox = (PictureBox)Controls.Find("pictureBox" + (activeCardIndex + 1).ToString(), true)[0];
+            pictureBox.BorderStyle = BorderStyle.None;
+        }
+
+        private void CheckWin()
+        {
+            if (sbros.Count == 36)
+            {
+                Form congrats = new CongratsForm();
+                var result = congrats.ShowDialog();
+            }
         }
 
         private void NewGame()
@@ -55,13 +158,10 @@ namespace Exam_Task_6
                 }
             }
 
+            sbros.Clear();
+            var sbrosBox = (PictureBox)Controls.Find("pictureBox10", true)[0];
+            sbrosBox.Image = null;
             drawCards();
-        }
-
-        private static void loadPicture(Card c, PictureBox box)
-        {
-            var pic = Application.StartupPath + @"\Images\" + c.Color + c.Value + ".png";
-            box.Load(pic);
         }
 
         private void drawCards()
@@ -80,89 +180,10 @@ namespace Exam_Task_6
                 loadPicture(sbros.Peek(), sbrosBox);
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private static void loadPicture(Card c, PictureBox box)
         {
-
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form exit = new ExitForm();
-
-            var result = exit.ShowDialog();
-
-            if (result == DialogResult.OK)
-                Application.Exit();
-
-            else if (result == DialogResult.No)
-                exit.Close();
-        }
-
-        private void newGame_Click(object sender, EventArgs e)
-        {
-            NewGame();
-            sbros.Clear();
-            var sbrosBox = (PictureBox)Controls.Find("pictureBox10", true)[0];
-            sbrosBox.Image = null;
-        }
-        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(sbros.Count>0 && sbros.Count<36)
-            {
-
-            }
-        }
-
-        private void rulesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form rules = new Rules();
-
-            var result = rules.ShowDialog();
-        }
-
-        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
-        {
-            var box = (PictureBox)sender;
-            if (activeCard == null)
-            {
-                var stackIndex = (string)box.Tag;
-                var i = int.Parse(stackIndex);
-                if (stacks[i].Count > 0)
-                {
-                    activeCard = stacks[i].Peek();
-                    activeCardIndex = i;
-                    box.BorderStyle = BorderStyle.Fixed3D;
-                }
-            }
-            else
-            {
-                var stackIndex = (string)box.Tag;
-                var i = int.Parse(stackIndex);
-                if (stacks[i].Count > 0)
-                    secondCard = stacks[i].Peek();
-
-                if (activeCard.Value == secondCard.Value && activeCard.Color != secondCard.Color)
-                {
-                    var c1 = stacks[i].Pop();
-                    var c2 = stacks[activeCardIndex].Pop();
-                    sbros.Push(c1);
-                    sbros.Push(c2);
-
-                    drawCards();
-                    
-                    if (sbros.Count == 36)
-                    {
-                        Form congrats = new CongratsForm();
-                        var result = congrats.ShowDialog();
-                        //NewGame();
-                    }
-                }
-
-                activeCard = null;
-                var pictureBox = (PictureBox)Controls.Find("pictureBox" + (activeCardIndex + 1).ToString(), true)[0];
-                pictureBox.BorderStyle = BorderStyle.None;
-            }
-
+            var pic = Application.StartupPath + @"\Images\" + c.Color + c.Value + ".png";
+            box.Load(pic);
         }
     }
 }
