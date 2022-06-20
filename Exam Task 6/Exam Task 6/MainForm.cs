@@ -35,7 +35,6 @@ namespace Exam_Task_6
             for (var i = 0; i < colors.Length; i++)
                 for (var k = 0; k < values.Length; k++)
                     cards[(i * values.Length) + k] = new Card(colors[i], values[k]);
-            //создан массив карт
 
             Random rnd = new Random();
 
@@ -44,17 +43,6 @@ namespace Exam_Task_6
                 int r = rnd.Next(i, cards.Length);
                 (cards[r], cards[i]) = (cards[i], cards[r]);
             }
-
-            //for (int i = cards.Length - 1; i > 0; i--)
-            //{
-            //    Random random = new Random();
-            //    int randomIndex = random.Next(0, i + 1);
-            //    Card temp = cards[i];
-            //    cards[i] = cards[randomIndex];
-            //    cards[randomIndex] = temp;
-            //}
-
-            //карты перетасованы рандомно
 
             for (var i = 0; i < stacks.Length; i++)
             {
@@ -66,9 +54,6 @@ namespace Exam_Task_6
                     stacks[i].Push(curCard);
                 }
             }
-
-
-            //карты раскиданы по стопкам
 
             drawCards();
         }
@@ -120,9 +105,12 @@ namespace Exam_Task_6
             var sbrosBox = (PictureBox)Controls.Find("pictureBox10", true)[0];
             sbrosBox.Image = null;
         }
-        private void cancelTurnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(sbros.Count>0 && sbros.Count<36)
+            {
 
+            }
         }
 
         private void rulesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -166,6 +154,7 @@ namespace Exam_Task_6
                     {
                         Form congrats = new CongratsForm();
                         var result = congrats.ShowDialog();
+                        //NewGame();
                     }
                 }
 

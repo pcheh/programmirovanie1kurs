@@ -31,7 +31,7 @@ namespace Exam_Task_6
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cancelTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -62,7 +62,7 @@ namespace Exam_Task_6
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newGameToolStripMenuItem,
-            this.cancelTurnToolStripMenuItem,
+            this.undoToolStripMenuItem,
             this.rulesToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -78,12 +78,12 @@ namespace Exam_Task_6
             this.newGameToolStripMenuItem.Text = "Новая игра";
             this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGame_Click);
             // 
-            // cancelTurnToolStripMenuItem
+            // undoToolStripMenuItem
             // 
-            this.cancelTurnToolStripMenuItem.Name = "cancelTurnToolStripMenuItem";
-            this.cancelTurnToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.cancelTurnToolStripMenuItem.Text = "Отменить ход";
-            this.cancelTurnToolStripMenuItem.Click += new System.EventHandler(this.cancelTurnToolStripMenuItem_Click);
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.undoToolStripMenuItem.Text = "Отменить ход";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // rulesToolStripMenuItem
             // 
@@ -245,7 +245,7 @@ namespace Exam_Task_6
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cancelTurnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rulesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
