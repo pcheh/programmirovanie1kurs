@@ -15,8 +15,8 @@ namespace Exam_Task_6
         Stack<Card>[] stacks = new Stack<Card>[9];
         Stack<Card> sbros = new Stack<Card>();
 
-        Stack<Card> stack1 = null;
-        Stack<Card> stack2 = null;
+        Stack<Card> stack1;
+        Stack<Card> stack2;
 
         Card activeCard;
         Card secondCard;
@@ -26,7 +26,7 @@ namespace Exam_Task_6
         {
             InitializeComponent();
 
-            NewGame();
+            //NewGame();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -173,6 +173,7 @@ namespace Exam_Task_6
             if (sbros.Count > 0)
                 loadPicture(sbros.Peek(), sbrosBox);
         }
+
         private static void loadPicture(Card c, PictureBox box)
         {
             var pic = Application.StartupPath + @"\Images\" + c.Color + c.Value + ".png";
